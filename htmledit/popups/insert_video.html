@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+<title>Videó Beszúrása</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<script language="JavaScript" type="text/javascript">
+
+var qsParm = new Array();
+
+function retrieveWYSIWYG() {
+  var query = window.location.search.substring(1);
+  var parms = query.split('&');
+  for (var i=0; i<parms.length; i++) {
+    var pos = parms[i].indexOf('=');
+    if (pos > 0) {
+       var key = parms[i].substring(0,pos);
+       var val = parms[i].substring(pos+1);
+       qsParm[key] = val;
+    }
+  }
+}
+
+
+function insertVideoLWMarkup() {
+	var markup = '[video=' + document.getElementById('video_unique_id').value + ']';
+	window.opener.insertHTML(markup, qsParm['wysiwyg']);
+	window.close();
+}
+
+
+
+</script>
+<body bgcolor="#EEEEEE" marginwidth="0" marginheight="0" topmargin="0" leftmargin="0" onLoad="retrieveWYSIWYG();">
+
+<table border="0" cellpadding="0" cellspacing="0" style="padding: 10px;"><tr><td>
+
+<span style="font-family: arial, verdana, helvetica; font-size: 11px; font-weight: bold;">Videó Beszúrása</span>
+<table width="280" border="0" cellpadding="0" cellspacing="0" style="background-color: #F7F7F7; border: 2px solid #FFFFFF; padding: 5px;">
+ <tr>
+  <td style="padding-bottom: 2px; padding-top: 0px; font-family: arial, verdana, helvetica; font-size: 11px;">Videó ID:</td>
+	<td style="padding-bottom: 2px; padding-top: 0px;"><input type="text" name="video_unique_id" id="video_unique_id" value="" style="font-size: 10px;" size="30"></td>
+ </tr>
+</table>	
+
+<div align="right" style="padding-top: 5px;"><input type="submit" value="  Mehet  " onClick="insertVideoLWMarkup();" style="font-size: 12px;" >&nbsp;<input type="submit" value="  Bezár  " onClick="window.close();" style="font-size: 12px;" ></div>
+
+</tr></td></table>
+
+</body>
+</html>

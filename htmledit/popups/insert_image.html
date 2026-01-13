@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+<title>Kép beszúrása</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<script language="JavaScript" type="text/javascript">
+
+var qsParm = new Array();
+
+function retrieveWYSIWYG() {
+  var query = window.location.search.substring(1);
+  var parms = query.split('&');
+  for (var i=0; i<parms.length; i++) {
+    var pos = parms[i].indexOf('=');
+    if (pos > 0) {
+       var key = parms[i].substring(0,pos);
+       var val = parms[i].substring(pos+1);
+       qsParm[key] = val;
+    }
+  }
+}
+
+
+/* ---------------------------------------------------------------------- *\
+  Function    : insertImage()
+  Description : Inserts image into the WYSIWYG.
+\* ---------------------------------------------------------------------- */
+function insertImage() {
+  var image = '<img src="' + document.getElementById('imageurl').value + '" alt="' + document.getElementById('alt').value + '" align="' + document.getElementById('alignment').value + '" border="' + document.getElementById('borderThickness').value + '" hspace="' + document.getElementById('horizontal').value + '" vspace="' + document.getElementById('vertical').value + '">';
+  window.opener.insertHTML(image, qsParm['wysiwyg']);
+  window.close();
+}
+
+</script>
+<body bgcolor="#EEEEEE" marginwidth="0" marginheight="0" topmargin="0" leftmargin="0" onLoad="retrieveWYSIWYG();">
+
+<table border="0" cellpadding="0" cellspacing="0" style="padding: 10px;"><tr><td>
+
+<span style="font-family: arial, verdana, helvetica; font-size: 11px; font-weight: bold;">Kép beszúrása</span>
+<table width="380" border="0" cellpadding="0" cellspacing="0" style="background-color: #F7F7F7; border: 2px solid #FFFFFF; padding: 5px;">
+ <tr>
+  <td style="padding-bottom: 2px; padding-top: 0px; font-family: arial, verdana, helvetica; font-size: 11px;" width="80">Kép URL:</td>
+	<td style="padding-bottom: 2px; padding-top: 0px;" width="300"><input type="text" name="imageurl" id="imageurl" value=""  style="font-size: 10px; width: 100%;"></td>
+ </tr>
+ <tr>
+  <td style="padding-bottom: 2px; padding-top: 0px; font-family: arial, verdana, helvetica; font-size: 11px;">Kép neve:</td>
+	<td style="padding-bottom: 2px; padding-top: 0px;"><input type="text" name="alt" id="alt" value="kep"  style="font-size: 10px; width: 100%;"></td>
+ </tr>
+</table>
+	
+
+
+<table width="380" border="0" cellpadding="0" cellspacing="0" style="margin-top: 10px;"><tr><td>
+
+<span style="font-family: arial, verdana, helvetica; font-size: 11px; font-weight: bold;">Elrendezés</span>
+<table width="185" border="0" cellpadding="0" cellspacing="0" style="background-color: #F7F7F7; border: 2px solid #FFFFFF; padding: 5px;">
+ <tr>
+  <td style="padding-bottom: 2px; padding-top: 0px; font-family: arial, verdana, helvetica; font-size: 11px;" width="100">Igazítás:</td>
+	<td style="padding-bottom: 2px; padding-top: 0px;" width="85">
+	<select name="alignment" id="alignment" style="font-family: arial, verdana, helvetica; font-size: 11px; width: 100%;">
+	 <option value=""></option>
+	 <option value="left">Balra</option>
+	 <option value="right">Jobbra</option>
+	 <option value="texttop">Szöveg fölé</option>
+	 <option value="absmiddle">Absmiddle</option>
+	 <option value="baseline">Baseline</option>
+	 <option value="absbottom">Absbottom</option>
+	 <option value="bottom">Bottom</option>
+	 <option value="middle">Middle</option>
+	 <option value="top">Felülre</option>
+	</select>
+	</td>
+ </tr>
+ <tr>
+  <td style="padding-bottom: 2px; padding-top: 0px; font-family: arial, verdana, helvetica; font-size: 11px;">Körvonal<br>(általában 0):</td>
+	<td style="padding-bottom: 2px; padding-top: 0px;"><input type="text" name="borderThickness" id="borderThickness" value="0"  style="font-size: 10px; width: 100%;"></td>
+ </tr>
+</table>	
+
+</td>
+<td width="10">&nbsp;</td>
+<td>
+
+<span style="font-family: arial, verdana, helvetica; font-size: 11px; font-weight: bold;">Térköz:</span>
+<table width="185" border="0" cellpadding="0" cellspacing="0" style="background-color: #F7F7F7; border: 2px solid #FFFFFF; padding: 5px;">
+ <tr>
+  <td style="padding-bottom: 2px; padding-top: 0px; font-family: arial, verdana, helvetica; font-size: 11px;" width="80">Vízszintes:</td>
+	<td style="padding-bottom: 2px; padding-top: 0px;" width="105"><input type="text" name="horizontal" id="horizontal" value=""  style="font-size: 10px; width: 100%;"></td>
+ </tr>
+ <tr>
+  <td style="padding-bottom: 2px; padding-top: 0px; font-family: arial, verdana, helvetica; font-size: 11px;">Függőleges:</td>
+	<td style="padding-bottom: 2px; padding-top: 0px;"><input type="text" name="vertical" id="vertical" value=""  style="font-size: 10px; width: 100%;"></td>
+ </tr>
+</table>	
+
+</td></tr></table>
+
+<div align="right" style="padding-top: 5px;"><input type="submit" value="  Mehet  " onClick="insertImage();" style="font-size: 12px;" >&nbsp;<input type="submit" value="  Bezár  " onClick="window.close();" style="font-size: 12px;" ></div>
+
+</tr></td></table>
+
+</body>
+</html>
