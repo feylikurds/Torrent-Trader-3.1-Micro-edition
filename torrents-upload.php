@@ -335,9 +335,9 @@ if (is_array($filelist) && count($filelist)) {
 		  }
 	
 	//shoutbox torrent announce shit////
-//	$user = ( $anon == 'yes' || $CURUSER['privacy'] == 'strong' ) ? 'Anonymous' : $CURUSER['username'];
-//$message = "New Torrent: [url=".$site_config['SITEURL']."/torrents-details.php?id=".$id."]".$name."[/url] has been uploaded by $CURUSER[username]";
-//SQL_Query_exec("INSERT INTO `shoutbox` (`uid`, `name`, `message`, `date`) VALUES ('0', 'System', " . sqlesc($message) . ", '".get_date_time()."')");
+	$user = ( $anon == 'yes' || $CURUSER['privacy'] == 'strong' ) ? 'Anonymous' : $CURUSER['username'];
+	$message = "New Torrent: [url=".$site_config['SITEURL']."/torrents-details.php?id=".$id."]".$name."[/url] has been uploaded by $CURUSER[username]";
+	SQL_Query_exec("INSERT INTO `shoutbox` (`uid`, `name`, `message`, `date`) VALUES ('0', 'System', " . sqlesc($message) . ", '".get_date_time()."')");
 
 	//insert email notif, irc, req notif, etc here
 	
