@@ -5,7 +5,11 @@ require_once("backend/smilies.php");
 dbconn(false);
 
 
-$action = mysqli_real_escape_string($_GET["action"]);
+
+if(isset($_GET["action"]))
+	$action = mysqli_real_escape_string($_GET["action"]);
+else
+	$action = "";
 
 function smile() {
 
@@ -44,20 +48,20 @@ function redirect($redirecturl) {
 if ($CURUSER){
    $ss_a = @mysqli_fetch_array(SQL_Query_exec("select uri from stylesheets where id=" . $CURUSER["stylesheet"]));
    if ($ss_a)
-      $THEME = $ss_a[uri];
+      $THEME = $ss_a["uri"];
       $lng_a = @mysqli_fetch_array(SQL_Query_exec("select uri from languages where id=" . $CURUSER["language"]));
    if ($lng_a)
-      $LANGUAGE =$lng_a[uri];
+      $LANGUAGE =$lng_a["uri"];
 }else{//not logged in so get default theme/language
    $ss_a = mysqli_fetch_array(SQL_Query_exec("select uri from stylesheets where id='" . $site_config['default_theme'] . "'"));
    if ($ss_a)
-      $THEME = $ss_a[uri];
+      $THEME = $ss_a["uri"];
    $lng_a = mysqli_fetch_array(SQL_Query_exec("select uri from languages where id='" . $site_config['default_language'] . "'"));
    if ($lng_a)
-      $LANGUAGE = $lng_a[uri];
+      $LANGUAGE = $lng_a["uri"];
 }
-@mysqli_free_result($lng_a);
-@mysqli_free_result($ss_a);
+//@mysqli_free_result($lng_a);
+//@mysqli_free_result($ss_a);
 
 
 if (isset($_GET['del'])){
