@@ -91,12 +91,26 @@ autolink("torrents-upload.php?action=style", T_("UPLOAD_ERR[4]"));
 
 		$shortfname = $torrent = $matches[1];
 
-	if (!empty($_POST["name"]))
+	if (!empty($_POST["name"])) {
 		$torrent = $_POST["name"];
-        
+		if (!validfilename($torrent))
+			$message = T_("UPLOAD_INVALID_FILENAME");
+		else
+			$name = $torrent;
+        }
+
     $tmpname = $f['tmp_name'];
 
 	//end check form data
+
+
+/* Debug
+	print ("<br /><br />fname: ".$fname."");
+	print ("<br /><br />name: ".$name."");
+	print ("<br /><br />torrent: ".$torrent."");
+	print ("<br /><br />tmpname: ".$tmpname."");
+*/
+
 
 	if (!$message) {
 	//parse torrent file
@@ -203,6 +217,7 @@ autolink("torrents-upload.php?action=style", T_("UPLOAD_ERR[4]"));
 	//end upload images
 	
 	// Make torrent private
+/*
    if ($external == "no") {
     require_once("backend/BDecode.php");
     require_once("backend/BEncode.php");
@@ -215,6 +230,7 @@ autolink("torrents-upload.php?action=style", T_("UPLOAD_ERR[4]"));
     $TorrentInfo = ParseTorrent("$torrent_dir/$fname");
     $infohash = $TorrentInfo[1];
    }
+*/
    // End add make torrent private
 
 	//anonymous upload
