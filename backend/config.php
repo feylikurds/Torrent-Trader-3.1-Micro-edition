@@ -1,6 +1,6 @@
 <?php
 $site_config = array();
-$site_config['ttversion'] = '3';		//DONT CHANGE THIS!
+$site_config['ttversion'] = '3.1ME';		//DONT CHANGE THIS!
 
 // Site API keys
 // Ignore these settings
