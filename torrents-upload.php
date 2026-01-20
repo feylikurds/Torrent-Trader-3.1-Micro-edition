@@ -308,15 +308,16 @@ if (is_array($filelist) && count($filelist)) {
     } 
 
 	//EXTERNAL SCRAPE
-	if ($external=='yes' && $site_config['UPLOADSCRAPE']){
+/*	if ($external=='yes' && $site_config['UPLOADSCRAPE']){
 		$tracker=str_replace("/announce","/scrape",$announce);	
 		$stats 			= torrent_scrape_url($tracker, $infohash);
 		$seeders 		= strip_tags($stats['seeds']);
 		$leechers 		= strip_tags($stats['peers']);
 		$downloaded 	= strip_tags($stats['downloaded']);
-
+		
 		SQL_Query_exec("UPDATE torrents SET leechers='".$leechers."', seeders='".$seeders."',times_completed='".$downloaded."',last_action= '".get_date_time()."',visible='yes' WHERE id='".$id."'"); 
 	}
+*/
 	//END SCRAPE
 
 	write_log("Torrent $id (".htmlspecialchars($name).") was Uploaded by $CURUSER[username]");
