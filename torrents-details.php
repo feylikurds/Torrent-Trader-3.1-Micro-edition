@@ -22,7 +22,7 @@ if ($site_config["MEMBERSONLY"]){
 		show_error_msg(T_("ERROR"), T_("NO_TORRENT_VIEW"), 1);
 }
 
-//************ DO SOME "GET" STUFF BEFORE PAGE LAYOUT ***************
+// ************ DO SOME "GET" STUFF BEFORE PAGE LAYOUT ***************
 
 $id = (int) $_GET["id"];
 $scrape = (int)$_GET["scrape"];
@@ -222,140 +222,6 @@ if ($row["banned"] == "yes"){
 echo "</div></td></tr></table></center><br /><br />";
 //end download box
 
-$TTIMDB = new TTIMDB;
-
-if ((($_data = $TTCache->Get("imdb/$id", 900)) === false) && ($_data = $TTIMDB->Get($row['imdb'])))
-{
-         $_data->Poster = $TTIMDB->getImage($_data->Poster, $id);
-		// $updateset[] = "image1 = " . sqlesc($image);
-
-         if ( ! isset( $_data->imdbTime ) )
-         {
-                 $_data->imdbTime = time();
-                
-                 $_data->Alias = 'N/A';
-                
-                 $_data->imdbVideo = null;
-         }
-		 
-
-		 //SQL_Query_exec("UPDATE `torrents` SET `image1` = '" . $_data->Poster . "' WHERE `id` = $id"); 
-// below is how the posters get added to the image 1 of the imdb	 
-          if (($imdb_image = $TTIMDB->getImage_1($_data->Poster, $site_config['torrent_dir'] . "/images/", $id))) {
-            SQL_Query_exec("UPDATE `torrents` SET `image1` = '" . $imdb_image . "' WHERE `id` = $id");
-		  }
-
-/////ADD a description pulled from the IMDB plot and put it in mysql as the descr
-		 if ($row["descr"]=='No description given.'){
-		 		 SQL_Query_exec("UPDATE `torrents` SET `descr` = '".mysqli_real_escape_string ($GLOBALS["DBconnector"],$_data->Plot). "' WHERE `id` = $id");
-		 }
-/////END description
-	         $TTCache->Set("imdb/$id", $_data, 900);
-
-}
-
-/////IMDB details layout
-if ( is_object($_data) ): ?>
-	<fieldset class="download">
-	<legend><b><?php echo T_("IMDB_SHORT"); ?> - <?php echo $_data->Title; ?></b></legend>                                                          
-	<table border="0" cellpadding="3" cellspacing="2" width="100%">
-	<tr>
-			 <td width="230"><img src="<?php echo $_data->Poster; ?>" class="youtube" alt="<?php echo $_data->Title; ?>" title="<?php echo $_data->Title; ?>" height="317px" width="214px" /></td>
-			 <td valign="top">
-			 <b><?php echo T_("IMDB_LINK"); ?></b><br /> <a href="<?php echo $row['imdb']; ?>" target="_blank"><?php echo htmlspecialchars($row['imdb']); ?></a><br /><br />
-			 <b><?php echo T_("IMDB_ID"); ?></b><br /> <?php echo $_data->imdbID; ?><br /><br />
-			 <b><?php echo T_("IMDB_RATED"); ?></b><br /> <?php echo $TTIMDB->getRated( $_data->Rated ); ?><br /><br />   
-			 <b><?php echo T_("IMDB_RELEASED"); ?></b><br /> <?php echo $TTIMDB->getReleased($_data->Released); ?><br /><br />
-			 <b><?php echo T_("IMDB_YEAR"); ?></b><br /> <?php echo $_data->Year; ?><br /><br />
-			 <b><?php echo T_("IMDB_RUNTIME"); ?></b><br /> <?php echo $_data->Runtime; ?><br /><br />
-			 <b><?php echo T_("IMDB_GENRE"); ?></b><br /> <?php echo $_data->Genre; ?><br /><br />
-			 <b><?php echo T_("IMDB_DIRECTOR"); ?></b><br /> <?php echo $_data->Director; ?><br /><br />
-			 <b><?php echo T_("IMDB_WRITER"); ?></b><br /> <?php echo $_data->Writer; ?><br /><br />
-			 <b><?php echo T_("IMDB_ACTORS"); ?></b><br /> <?php echo $_data->Actors; ?><br /><br />
-			 <b><?php echo T_("IMDB_PLOT"); ?></b><br /> <?php echo $_data->Plot; ?>
-			 </td>
-			 <!-- below is commented to only use the star images. If reversing, dont forget to remove one endif; located below -->
-			 <!-- <?php // if  (($rating = $TTIMDB->getRating($_data->imdbRating)) !== null): ?>
-			 <td valign="top" align="right">
-	<?php /*?>         <?php echo $rating; ?><br />
-	<?php */?>		 
-			 <b><?php echo T_("IMDB_RATING"); ?></b> <?php echo $_data->imdbRating; ?><br />
-			 <br />
-			 <b><?php echo T_("IMDB_VOTES"); ?></b> <?php echo $_data->imdbVotes; ?><br /><br /><b><b> -->
-			<!-- end comments -->
-			
-			<?php $imdb_star = ("/images/imdb/imdb_gold_star.png"); ?>		
-			 <td valign="top" align="right">
-			 <?php echo '<div style="font-size:2.75em;font-weight:bold;"><img width="60" height="60" style="vertical-align:middle" src='.$imdb_star.'>'.$_data->imdbRating.'</div>'?>
-			 <b><?php echo T_("IMDB_VOTES"); ?></b> <?php echo $_data->imdbVotes; ?><br /><br /><b><b>
-	
-	<!--trailer code for both IMDB and traileraddicts -->
-			
-	<style>
-	.tablet {
-		width:590px;
-		height: 370px;
-		background-size: 100% 100%;
-		background-repeat: no-repeat;
-		background-image: url(images/imdb/tablet.png)  
-	}
-	
-	.tablet iframe {
-	  position: relative;
-	  top: 50px;
-	  left: 0px;
-	  width: 480px;
-	  height: 274px;
-	  border: 0 none;
-	  }
-	</style>
-		
-			 <?php
-	
-	   if ($row["trailers"]) {
-			$video=$row["trailers"]; //Dont forget to make changes to backend/functions also, around line 1380
-			$video=substr($video,27); //adjustments to shorten the URL removes first 27 characters from URL
-			$video2=$video; //changing variables to further shorten the URL
-			$video2=substr($video2, 0, -21); //more adjustments to shorten the URL down the the IMDB video number only. removes last 21 characters
-			?>
-		   <div class="tablet">
-		   <center><iframe seamless src="https://www.imdb.com/videoembed/<?php echo $video2; ?>"></iframe></center><br />
-	</div><?php
-	   }
-		else {
-			$imdb_image = ("/images/imdb_trailers.png");
-			echo '<p valign="top" align="right"><img src='.$imdb_image.'></p>';
-			echo '<p align="center">'.'<br><br>'.'</p>';  
-				}
-	/*		 
-	$string=$_data->imdbID;
-	$string=substr($string,2);
-	$trailerkey = $site_config['TRAILERADDICT'];
-	$upcoming = simplexml_load_file("http://api.traileraddict.com/?imdb=".$string."&count=1&width=480&k=".$trailerkey."");
-	
-	foreach($upcoming->trailer as $x => $updates)
-	{
-	
-	echo '<p valign="top" align="left">'.$updates->embed.'</p>';
-	echo '<p valign="top" align="right">'.$updates->title.'</p>';
-	echo '<p align="center">'.'<br><br>'.'</p>';  
-		}} */
-	/////end trailer code
-	
-		?>
-			 </b></b>
-			 </td>
-	
-	</tr>
-	<tr>
-			 <td align="right" colspan="3">
-			 <b><?php echo T_("IMDB_LASTUPDATED"); ?></b> <i><?php echo $TTIMDB->getUpdated($_data->imdbTime); ?></i>
-			 </td>
-	</tr>
-	</table>
-	</fieldset><br />
-	
-	<?php  endif;
 	?>
 	
 	<!-----NEW DETAILS LAYOUT 4-8-2016 ----->
