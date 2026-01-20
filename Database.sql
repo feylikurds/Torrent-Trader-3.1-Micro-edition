@@ -1259,7 +1259,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `team` int(10) unsigned NOT NULL DEFAULT '0',
   `tzoffset` int(4) DEFAULT '0',
   `hideshoutbox` enum('yes','no') CHARACTER SET latin1 NOT NULL DEFAULT 'no',
-  `token` text CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `token` text CHARACTER SET latin1 DEFAULT NULL,
   `browser` varchar(50) NOT NULL DEFAULT '9',
   `os` varchar(30) NOT NULL DEFAULT 'Unknown',
   PRIMARY KEY (`id`),
