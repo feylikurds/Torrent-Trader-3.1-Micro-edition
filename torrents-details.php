@@ -253,16 +253,8 @@ echo "</div></td></tr></table></center><br /><br />";
 			 <b><?php echo T_("VIEWS"); ?></b><br /> <?php echo number_format($row["views"]); ?><br /><br />
 			 <b><?php echo T_("HITS"); ?></b><br /> <?php echo number_format($row["hits"]); ?>
 			 </td>
-				<?php if (!empty($row["tube"])): ?>
-			 <td valign="top" align="center">
-			 <b><?php echo T_("VIDEOTUBE"); ?></b><br /><br /><?php echo  "<embed class=\"youtube\" src= '". str_replace("watch?v=", "v/", htmlspecialchars($row["tube"])) ."' type=\"application/x-shockwave-flash\" width=\"400\" height=\"310\"></embed>";?>
-			 </td>
-				<?php elseif (empty($row["tube"])): ?>
-			 <td valign="top" align="center">
-			 <b><?php echo T_("NOVIDEOTUBE"); ?></b><br /><br /><?php echo "<img src=\"$image\" width=\"278\" height=\"120\"/>"; ?>
-		  </td>
 	
-			<?php endif;endif; ?> 
+			<?php endif; ?> 
 	</tr>
 	
 	</table>
