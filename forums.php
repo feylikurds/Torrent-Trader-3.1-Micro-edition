@@ -1028,6 +1028,8 @@ if ($action == "viewforum") {
     $res = SQL_Query_exec("SELECT COUNT(*) FROM forum_topics WHERE forumid=$forumid");
     $arr = mysqli_fetch_row($res);
     $num = $arr[0];
+    $page = intval($page);
+
     if ($page == 0)
       $page = 1;
     $first = ($page * $perpage) - $perpage + 1;
