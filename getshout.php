@@ -46,7 +46,8 @@ if ($CURUSER["edit_users"]=="yes") {
 //   }
    }else
    if ($CURUSER['id']) {
-   $edit="<a href='mailbox.php?compose&id=$uid'><img src='images/ajshoutbox/pm.png' border='0' width='22' height='22' title='Send a private message' alt='Send a private message'></a><a href=javascript:Reply_code('&#10148;".$row['name'].":','chatForm','chatbarText')><img src='images/ajshoutbox/reply.png' border='0' width='22' height='22' style='padding: 0px 0px 0px 3px;' title='Reply to this shout' alt='Reply to this shout'\n></a>";
+//   $edit="<a href='mailbox.php?compose&id=$uid'><img src='images/ajshoutbox/pm.png' border='0' width='22' height='22' title='Send a private message' alt='Send a private message'></a><a href=javascript:Reply_code('&#10148;".$row['name'].":','chatForm','chatbarText')><img src='images/ajshoutbox/reply.png' border='0' width='22' height='22' style='padding: 0px 0px 0px 3px;' title='Reply to this shout' alt='Reply to this shout'\n></a>";
+   $edit="<a href='mailbox.php?compose&id=$uid'><img src='images/ajshoutbox/pm.png' border='0' width='22' height='22' title='Send a private message' alt='Send a private message'></a>";
    }
 
       $a ="SELECT class FROM `users` WHERE id = ".$row['uid'];
