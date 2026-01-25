@@ -19,7 +19,7 @@ if ($site_config["MEMBERSONLY"]){
 }
 
 function sqlwildcardesc($x){
-    return str_replace(array("%","_"), array("\\%","\\_"), mysqli_real_escape_string($x));
+    return str_replace(array("%","_"), array("\\%","\\_"), mysqli_real_escape_string($GLOBALS["DBconnector"],$x));
 }
 
 //GET SEARCH STRING
@@ -112,7 +112,7 @@ $parent_cat = $_GET["parent_cat"];
 $wherebase = $wherea;
 
 if (isset($cleansearchstr)) {
-	$wherea[] = "MATCH (torrents.name) AGAINST ('".mysqli_real_escape_string($searchstr)."' IN BOOLEAN MODE)";
+	$wherea[] = "MATCH (torrents.name) AGAINST ('".mysqli_real_escape_string($GLOBALS["DBconnector"],$searchstr)."' IN BOOLEAN MODE)";
 
 	$addparam .= "search=" . urlencode($searchstr) . "&amp;";
 	$thisurl .= "search=".urlencode($searchstr)."&amp;";
@@ -198,7 +198,7 @@ if (!$count && isset($cleansearchstr)) {
 //Sort by
 if ($addparam != "") { 
 	if ($pagerlink != "") {
-		if ($addparam(strlen($addparam)-1) != ";") { // & = &amp;
+		if (strlen($addparam)-1 != ";") { // & = &amp;
 			$addparam = $addparam . "&amp;" . $pagerlink;
 		} else {
 			$addparam = $addparam . $pagerlink;
