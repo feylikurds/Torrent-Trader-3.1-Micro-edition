@@ -84,7 +84,7 @@ if ($_GET["takecomment"] == 'yes'){
 
     SQL_Query_exec("INSERT INTO comments (user, torrent, added, text) VALUES (".$CURUSER["id"].", ".$id.", '" .get_date_time(). "', " . sqlesc($body).")");
 
-    if (mysqli_affected_rows() == 1)
+    if (mysqli_affected_rows($GLOBALS["DBconnector"]) == 1)
     autolink("torrents-details.php?id=$id", T_("COMMENT_ADDED"));
         else
     autolink("torrents-details.php?id=$id", T_("UNABLE_TO_ADD_COMMENT"));
