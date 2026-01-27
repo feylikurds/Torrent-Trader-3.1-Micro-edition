@@ -1201,6 +1201,7 @@ CREATE TABLE IF NOT EXISTS `torrents` (
   `freeleech` enum('0','1') NOT NULL DEFAULT '0',
   `trailers` varchar(255) CHARACTER SET latin1 NOT NULL,
   `uplreq` enum('yes','no') DEFAULT 'no',
+  `magnet` text CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `info_hash` (`info_hash`(20)),
   KEY `owner` (`owner`),
