@@ -139,7 +139,8 @@ $site_config["ratiowarn_mingigs"] = 4;  //Min GB Downloaded
 $site_config["ratiowarn_daystowarn"] = 14; //Days to ban
 
 // category = Category Image/Name, name = Torrent Name, dl = Download Link, uploader, comments = # of comments, completed = times completed, size, seeders, leechers, health = seeder/leecher ratio, external, wait = Wait Time (if enabled), rating = Torrent Rating, added = Date Added, nfo = link to nfo (if exists)
-$site_config["torrenttable_columns"] = "category,name,dl,magnet,imdb,tube,size,seeders,leechers,health,added";
+// $site_config["torrenttable_columns"] = "category,name,dl,magnet,imdb,tube,size,seeders,leechers,health,added";
+$site_config["torrenttable_columns"] = "category,name,dl,magnet,size,seeders,leechers,health,added";
 // size, speed, added = Date Added, tracker, completed = times completed comments,
 $site_config["torrenttable_expand"] = "";
 
